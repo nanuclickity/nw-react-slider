@@ -156,8 +156,8 @@ module.exports = React.createClass({
   triggerOnChange: function (pos) {
     const { value, position } = this.updateValueFromPosition(pos)
 
-    if(isFunction(this.props.onChange)) {
-      this.props.onChange(value, position);
+    if (isFunction(this.props.onChange)) {
+      this.props.onChange(value, position)
     }
   },
 
