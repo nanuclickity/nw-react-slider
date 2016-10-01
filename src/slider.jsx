@@ -16,6 +16,7 @@ module.exports = React.createClass({
     onDragStart: React.PropTypes.func,
     onDragEnd: React.PropTypes.func,
     markerLabel: React.PropTypes.array,
+    popoverFormatter: React.PropTypes.func,
     displayFollowerPopover: React.PropTypes.bool
   },
 
@@ -44,8 +45,12 @@ module.exports = React.createClass({
     var trackWidth = this.refs.slider && this.refs.slider.state.trackWidth
     var handleWidth = this.state.handleWidth
     var dragging = this.refs.slider && this.refs.slider.state.dragging
+    var popoverFormatter = isFunction(this.props.popoverFormatter)
+      ? this.props.popoverFormatter
+      : function(value){ return value }
+    var popoverValue = popoverFormatter(this.props.value)
     var follower = (this.props.displayFollowerPopover && !isUndefined(this.state.rtPosition))
-      ? (<Popover trackWidth={trackWidth} handleWidth={handleWidth} value={this.props.value} position={this.state.rtPosition} />)
+      ? (<Popover trackWidth={trackWidth} handleWidth={handleWidth} value={popoverValue} position={this.state.rtPosition} />)
       : (<span/>)
     return (
       <div className={classnames('slider-container-component', {dragging: dragging})} >
